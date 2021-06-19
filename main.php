@@ -18,13 +18,11 @@ for ($i = 0; $i < 10; ++$i) {
 }
 */
 
-$farm->collectProducts(7);
-
 $isCli = php_sapi_name() == 'cli';
 
 $lineBreak = fn(bool $isCli) => $isCli ? "\n" : "<br />";
 
-echo "Собранной продукции за 7 дней:" . $lineBreak($isCli) . $farm->totalAmountProductions($isCli);
+echo "Собранной продукции за 7 дней:" . $lineBreak($isCli) . $farm->collectProducts(7)->getInfo($isCli);
 
 for ($i = 0; $i < 5; ++$i) {
     $farm->addAnimal(new Chicken());
