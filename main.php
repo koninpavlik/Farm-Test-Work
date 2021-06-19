@@ -3,11 +3,31 @@ include_once 'autoload.php';
 
 $farm = new Farm();
 
-$farm->addAnimals(Chicken::class, 10);
-$farm->addAnimals(Cow::class, 10);
+for ($i = 0; $i < 20; ++$i) {
+    $farm->addAnimal(new Chicken());
+}
 
-$farm->collectProducts();
+for ($i = 0; $i < 10; ++$i) {
+    $farm->addAnimal(new Cow());
+}
+
+/*
+ * add Duck example
+for ($i = 0; $i < 10; ++$i) {
+    $farm->addAnimal(new Duck());
+}
+*/
+
+$farm->collectProducts(7);
 
 $isCli = php_sapi_name() == 'cli';
 
-echo $farm->totalAmountProductions($isCli);
+echo "Собранной продукции за 7 дней:<br/>" . $farm->totalAmountProductions($isCli);
+
+for ($i = 0; $i < 5; ++$i) {
+    $farm->addAnimal(new Chicken());
+}
+
+echo "Собранной продукции еще за 7 дней после покупки 5 кур:<br/>" . $farm->collectProducts(7)->getInfo($isCli);
+
+echo "Суммарно продукции в хранилище:<br/>" . $farm->totalAmountProductions($isCli);

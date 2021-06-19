@@ -1,26 +1,27 @@
 <?php
 class Storage
 {
-    private $milk;
-    private $eggs;
+    private array $products = [];
 
-    public function addMilk($count): void
+    public function addProduct(string $name, int $count): void
     {
-        $this->milk += $count;
+        if(!isset($this->products[$name])){
+            $this->products[$name] = $count;
+        } else {
+            $this->products[$name] += $count;
+        }
     }
 
-    public function addEggs($count): void
+    public function getInfo(bool $isCli): string
     {
-        $this->eggs += $count;
-    }
-
-    public function getInfoCli(): string
-    {
-        return "Яиц собрано: \e[32m{$this->eggs} шт.\e[0m \nМолока собрано: \e[32m{$this->milk} л.\e[0m";
-    }
-
-    public function getInfo(): string
-    {
-        return "Яиц собрано: {$this->eggs} шт. <br/>Молока собрано: {$this->milk} л.";
+        $result = "";
+        foreach ($this->products as $key => $value) {
+            if ($isCli) {
+                $result .= "{$key}: {$value}\n";
+            } else {
+                $result .= "{$key}: {$value}<br/>";
+            }
+        }
+        return $result;
     }
 }

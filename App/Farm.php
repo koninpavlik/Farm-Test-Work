@@ -11,22 +11,19 @@ class Farm
         $this->barn = new Barn($this->storage);
     }
 
-    public function totalAmountProductions(bool $isCli): string
+    public function totalAmountProductions($isCli): string
     {
-        if ($isCli) {
-            return $this->storage->getInfoCli();
-        } else {
-            return $this->storage->getInfo();
-        }
+        return $this->storage->getInfo($isCli);
     }
 
-    public function addAnimals(string $animal, int $count): void
+    public function addAnimal(AnimalAbstract $animal): void
     {
-        $this->barn->addAnimals($animal, $count);
+        $this->barn->addAnimal($animal);
     }
 
-    public function collectProducts(): void
+    public function collectProducts(int $days): Storage
     {
-        $this->barn->collectProducts();
+        $days = $days >= 1 ? $days : 1;
+        return $this->barn->collectProducts($days);
     }
 }
