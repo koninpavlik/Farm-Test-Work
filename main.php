@@ -22,12 +22,14 @@ $farm->collectProducts(7);
 
 $isCli = php_sapi_name() == 'cli';
 
-echo "Собранной продукции за 7 дней:<br/>" . $farm->totalAmountProductions($isCli);
+$lineBreak = fn(bool $isCli) => $isCli ? "\n" : "<br />";
+
+echo "Собранной продукции за 7 дней:" . $lineBreak($isCli) . $farm->totalAmountProductions($isCli);
 
 for ($i = 0; $i < 5; ++$i) {
     $farm->addAnimal(new Chicken());
 }
 
-echo "Собранной продукции еще за 7 дней после покупки 5 кур:<br/>" . $farm->collectProducts(7)->getInfo($isCli);
+echo "Собранной продукции еще за 7 дней после покупки 5 кур:" . $lineBreak($isCli) . $farm->collectProducts(7)->getInfo($isCli);
 
-echo "Суммарно продукции в хранилище:<br/>" . $farm->totalAmountProductions($isCli);
+echo "Суммарно продукции в хранилище:" . $lineBreak($isCli) . $farm->totalAmountProductions($isCli);

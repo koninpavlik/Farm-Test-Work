@@ -17,7 +17,7 @@ class Storage
         $result = "";
         foreach ($this->products as $key => $value) {
             if ($isCli) {
-                $result .= "{$key}: {$value}\n";
+                $result .= "{$key}: \e[32m{$value}\e[0m\n";
             } else {
                 $result .= "{$key}: {$value}<br/>";
             }
